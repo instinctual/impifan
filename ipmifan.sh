@@ -24,11 +24,11 @@ IPMIPW=S*13qW6R+q@HQK2d07/- # <Password for the iDRAC
 # Change this to the temperature in celcius you are comfortable with.
 # If the temperature goes above the set degrees it will send raw IPMI command to enable dynamic fan control
 # According to iDRAC Min Warning is 42C and Failure (shutdown) is 47C
-StartMidTemp="28"
-MidTemp=( "28" "29" "30" "31" )
-HighTemp=( "32" "33" "34" "35" )
-VeryHighTemp=( "36" "37" "38" "39" "40" )
-MAXTEMP="40"
+StartMidTemp="30"
+31_33degrees=( "31" "32" "33" )
+34_37degrees=( "34" "35" "36" "37" )
+38_41degrees=( "38" "39" "40" "41" )
+MAXTEMP="42"
 
 
 
@@ -55,36 +55,61 @@ MAXTEMP="40"
 # 3c = xxxx  RPM 60%
 # 50 = xxxxx RPM 80%
 
-# Default level: 3000 RPM
-function FanDefault()
+# 10%
+function FanLevel10()
 {
-  echo "Info: Activating manual fan speeds (3000 RPM)"
+  echo "Info: Activating manual fan speeds 10%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x10
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0xa
 }
 
-# Mid-Level: 5880 RPM
-function FanMid()
+# 15%
+function FanLevel15()
 {
-  echo "Info: Activating manual fan speeds (5880 RPM)"
+  echo "Info: Activating manual fan speeds 15%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x20
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
 }
 
-# High-level: 8800 RPM
-function FanHigh()
+# 20%
+function FanLevel20()
 {
-  echo "Info: Activating manual fan speeds (8880 RPM)"
+  echo "Info: Activating manual fan speeds 20%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x30
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x14
 }
 
-# Very-High-level: 14640 RPM
-function FanVeryHigh()
+# 25%
+function FanLevel25()
 {
-  echo "Info: Activating manual fan speeds (14640 RPM)"
+  echo "Info: Activating manual fan speeds 25%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x50
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x19
+}
+
+
+# 30%
+function FanLevel30()
+{
+  echo "Info: Activating manual fan speeds 30%"
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x1e
+}
+
+# 35%
+function FanLevel35()
+{
+  echo "Info: Activating manual fan speeds 35%"
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x23
+}
+
+# 40%
+function FanLevel35()
+{
+  echo "Info: Activating manual fan speeds 40%"
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x28
 }
 
 # Auto-controled
@@ -114,46 +139,38 @@ array_contains () {
 }
 
 # Start by setting the fans to default low level
-echo "Info: Activating manual fan speeds (2280 RPM)"
-ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
-ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
+echo "Info: Activating manual fan speeds 10%"
+#ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
+#ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
+FanLevel15
 
 while :
 do
   CurrentTemp=$(gettemp)
   if [[ $CurrentTemp > $MAXTEMP ]]; then
-    EMERGENCY=true
     FanAuto
   fi
 
   if [[ $CurrentTemp < $StartMidTemp ]]; then
-    EMERGENCY=false
-    NOTIFY=false
-    FanDefault
+    Fan10
   fi
 
-  array_contains MidTemp $CurrentTemp
+  array_contains 31_33degrees $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    EMERGENCY=false
-    NOTIFY=false
-    FanMid
+    FanLevel25
   fi
 
-  array_contains HighTemp $CurrentTemp
+  array_contains 34_37degrees $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    EMERGENCY=false
-    NOTIFY=false
-    FanHigh
+    FanLevel30
   fi
 
-  array_contains VeryHighTemp $CurrentTemp
+  array_contains 38_41degrees $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    EMERGENCY=false
-    NOTIFY=false
-    FanVeryHigh
+    FanLevel35
   fi
 
   sleep 20
