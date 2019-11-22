@@ -155,19 +155,19 @@ do
     Fan10
   fi
 
-  array_contains 31_33degrees $CurrentTemp
+  array_contains LowTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
     FanLevel25
   fi
 
-  array_contains 34_37degrees $CurrentTemp
+  array_contains MidTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
     FanLevel30
   fi
 
-  array_contains 38_41degrees $CurrentTemp
+  array_contains HighTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
     FanLevel35
