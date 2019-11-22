@@ -142,11 +142,12 @@ array_contains () {
 echo "Info: Activating manual fan speeds 10%"
 #ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
 #ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
-FanLevel15
+#FanLevel15
 
 while :
 do
   CurrentTemp=$(gettemp)
+  echo $CurrentTemp
   if [[ $CurrentTemp > $MAXTEMP ]]; then
     FanAuto
   fi
