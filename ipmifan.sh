@@ -174,5 +174,5 @@ do
     FanLevel35
   fi
 
-  sleep 20
+  sleep 30
 done
