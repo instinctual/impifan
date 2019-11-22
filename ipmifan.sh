@@ -147,7 +147,7 @@ array_contains () {
 while :
 do
   CurrentTemp=$(gettemp)
-  echo "Current System Board Exhaust Temp: $CurrentTemp Celcius"
+  echo "'hostname' System Board Exhaust Temp: $CurrentTemp Celcius"
   echo " "
   if [[ $CurrentTemp > $MAXTEMP ]]; then
     FanAuto
