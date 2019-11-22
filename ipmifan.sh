@@ -154,7 +154,7 @@ do
   fi
 
   if [[ $CurrentTemp < $IdleTemp ]]; then
-    Fan15
+    FanLevel15
   fi
 
   array_contains LowTemp $CurrentTemp
