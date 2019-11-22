@@ -58,7 +58,7 @@ MAXTEMP="42"
 # 10%
 function FanLevel10()
 {
-  echo "Info: Activating manual fan speeds 10%"
+  echo "Activating manual fan speeds 10%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0xa
 }
@@ -66,7 +66,7 @@ function FanLevel10()
 # 15%
 function FanLevel15()
 {
-  echo "Info: Activating manual fan speeds 15%"
+  echo "Activating manual fan speeds 15%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x0f
 }
@@ -74,7 +74,7 @@ function FanLevel15()
 # 20%
 function FanLevel20()
 {
-  echo "Info: Activating manual fan speeds 20%"
+  echo "Activating manual fan speeds 20%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x14
 }
@@ -82,7 +82,7 @@ function FanLevel20()
 # 25%
 function FanLevel25()
 {
-  echo "Info: Activating manual fan speeds 25%"
+  echo "Activating manual fan speeds 25%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x19
 }
@@ -91,7 +91,7 @@ function FanLevel25()
 # 30%
 function FanLevel30()
 {
-  echo "Info: Activating manual fan speeds 30%"
+  echo "Activating manual fan speeds 30%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x1e
 }
@@ -99,7 +99,7 @@ function FanLevel30()
 # 35%
 function FanLevel35()
 {
-  echo "Info: Activating manual fan speeds 35%"
+  echo "Activating manual fan speeds 35%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x23
 }
@@ -107,7 +107,7 @@ function FanLevel35()
 # 40%
 function FanLevel35()
 {
-  echo "Info: Activating manual fan speeds 40%"
+  echo "Activating manual fan speeds 40%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x28
 }
@@ -115,7 +115,7 @@ function FanLevel35()
 # Auto-controled
 function FanAuto()
 {
-  echo "Info: Dynamic fan control Active ($CurrentTemp C)" | /usr/bin/slacktee.sh -t "R610 [$(hostname)]"
+  echo "Dynamic fan control Active ($CurrentTemp C)"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x01
 }
 
@@ -148,6 +148,7 @@ while :
 do
   CurrentTemp=$(gettemp)
   echo "Current System Board Exhaust Temp: $CurrentTemp Celcius"
+  echo " "
   if [[ $CurrentTemp > $MAXTEMP ]]; then
     FanAuto
   fi
