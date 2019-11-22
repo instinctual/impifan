@@ -19,26 +19,6 @@ IPMIHOST=${IPMIHOST} # <IP Address of the iDRAC on the Server>
 IPMIUSER=${IPMIUSER} # <User for the iDRAC>
 IPMIPW=${IPMIPW} # <Password for the iDRAC
 
-# HealthCheck HC_URL
-HC_URL=${HC_URL} # <Unique Ping URL component>
-
-# Slacktee Configs
-WEBHOOK_URL=${WEBHOOK_URL}
-UPLOAD_TOKEN=${UPLOAD_TOKEN}
-CHANNEL=${CHANNEL}
-TMP_DIR=${TMP_DIR}
-USERNAME=${USERNAME}
-ICON=${ICON}
-ATTACHMENT=${ATTACHMENT}
-
-# Configure Slacktee
-sed -i 's#webhook_url=""#webhook_url="'"$WEBHOOK_URL"'"#g' /etc/slacktee.conf
-sed -i 's/upload_token=""/upload_token="'"$UPLOAD_TOKEN"'"/g' /etc/slacktee.conf
-sed -i 's/channel=""/channel="'"$CHANNEL"'"/g' /etc/slacktee.conf
-sed -i 's#tmp_dir=""#tmp_dir="'"$TMP_DIR"'"#g' /etc/slacktee.conf
-sed -i 's/username=""/username="'"$USERNAME"'"/g' /etc/slacktee.conf
-sed -i 's/icon=""/icon="'"$ICON"'"/g' /etc/slacktee.conf
-sed -i 's/attachment=""/attachment="'"$ATTACHMENT"'"/g' /etc/slacktee.conf
 
 # TEMPERATURE
 # Change this to the temperature in celcius you are comfortable with.
@@ -60,15 +40,19 @@ MAXTEMP="40"
 # 0x00 = 0%
 # 0x64 = 100%
 #
-# R610 RPM values
-# 0b = 2280 RPM
-# 0e = 2640 RPM
-# 0f = 2760 RPM
-# 10 = 3000 RPM
-# 1a = 4800 RPM
-# 20 = 5880 RPM
-# 30 = 8880 RPM
-# 50 = 14640 RPM
+# R7910 RPM values
+     
+# a = 3360 RPM 10% 
+# 0f = 4080 RPM 15%
+# 14 = 4920 RPM 20%
+# 19 = 5640 RPM 25% 
+# 1e = 6480 RPM 30% 
+# 23 = 7200 RPM 35% 
+# 28 = 8040 RPM 40%
+# 2d = xxxx RPM 45%
+# 32 = xxxx RPM 50%
+# 3c = xxxx RPM 60%
+# 50 = xxxxx RPM 80%
 
 # Default level: 3000 RPM
 function FanDefault()
@@ -115,16 +99,6 @@ function gettemp()
   echo "$TEMP"
 }
 
-function healthcheck()
-{
-  # healthchecks.io
-  curl -fsS --retry 3 $HC_URL >/dev/null 2>&1
-  if $EMERGENCY; then
-    echo "Temperature is NOT OK ($CurrentTemp C). Emergency Status: $EMERGENCY"
-  else
-    echo "Temperature is OK ($CurrentTemp C). Emergency Status: $EMERGENCY"
-  fi
-}
 
 # Helper function for does an array contain a this value
 array_contains () {
@@ -181,6 +155,5 @@ do
     FanVeryHigh
   fi
 
-  healthcheck
   sleep 20
 done
