@@ -154,13 +154,13 @@ do
   fi
 
   if [[ $CurrentTemp < $IdleTemp ]]; then
-    Fan10
+    Fan15
   fi
 
   array_contains LowTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    FanLevel25
+    FanLevel20
   fi
 
   array_contains MidTemp $CurrentTemp
