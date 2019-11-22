@@ -41,17 +41,18 @@ MAXTEMP="40"
 # 0x64 = 100%
 #
 # R7910 RPM values
-     
-# a = 3360 RPM 10% 
-# 0f = 4080 RPM 15%
-# 14 = 4920 RPM 20%
-# 19 = 5640 RPM 25% 
-# 1e = 6480 RPM 30% 
-# 23 = 7200 RPM 35% 
-# 28 = 8040 RPM 40%
-# 2d = xxxx RPM 45%
-# 32 = xxxx RPM 50%
-# 3c = xxxx RPM 60%
+
+# 5 =  2400  RPM 5%   
+# a =  3360  RPM 10% 
+# 0f = 4080  RPM 15%
+# 14 = 4920  RPM 20%
+# 19 = 5640  RPM 25% 
+# 1e = 6480  RPM 30% 
+# 23 = 7200  RPM 35% 
+# 28 = 8040  RPM 40%
+# 2d = xxxx  RPM 45%
+# 32 = xxxx  RPM 50%
+# 3c = xxxx  RPM 60%
 # 50 = xxxxx RPM 80%
 
 # Default level: 3000 RPM
