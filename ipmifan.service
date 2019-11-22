@@ -1,0 +1,13 @@
+[Unit]
+Description=IPMI Fan
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+User=root
+ExecStart=/opt/instinctual/impifan/ipmifan.sh
+
+[Install]
+WantedBy=multi-user.target
