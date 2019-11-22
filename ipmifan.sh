@@ -15,9 +15,9 @@ NOTIFY=true
 
 # IPMI SETTINGS:
 # DEFAULT IP: 192.168.0.120
-IPMIHOST=${IPMIHOST} # <IP Address of the iDRAC on the Server>
-IPMIUSER=${IPMIUSER} # <User for the iDRAC>
-IPMIPW=${IPMIPW} # <Password for the iDRAC
+IPMIHOST=192.168.108.201 # <IP Address of the iDRAC on the Server>
+IPMIUSER=root # <User for the iDRAC>
+IPMIPW=S*13qW6R+q@HQK2d07/- # <Password for the iDRAC
 
 
 # TEMPERATURE
@@ -95,7 +95,7 @@ function FanAuto()
 
 function gettemp()
 {
-  TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type temperature |grep Ambient |grep degrees |grep -Po '\d{2}' | tail -1)
+  TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type temperature | grep Exhaust | cut -d \| -f5 |grep -Po '\d{2}')
   echo "$TEMP"
 }
 
