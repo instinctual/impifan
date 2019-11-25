@@ -15,7 +15,7 @@ NOTIFY=true
 
 # IPMI SETTINGS:
 # DEFAULT IP: 192.168.0.120
-IPMIHOST=192.168.108.201 # <IP Address of the iDRAC on the Server>
+IPMIHOST=192.168.108.59 # <IP Address of the iDRAC on the Server>
 IPMIUSER=root # <User for the iDRAC>
 IPMIPW=S*13qW6R+q@HQK2d07/- # <Password for the iDRAC
 
