@@ -113,7 +113,7 @@ function FanLevel40()
 }
 
 # 45%
-function FanLevel40()
+function FanLevel45()
 {
   echo "Setting fan speed to 45%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
