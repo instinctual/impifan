@@ -26,9 +26,9 @@ IPMIPW=S*13qW6R+q@HQK2d07/- # <Password for the iDRAC
 # According to iDRAC Min Warning is 42C and Failure (shutdown) is 47C
 IdleTemp="30"
 LowTemp=( "31" "32" "33" )
-MidTemp=( "34" "35" "36" "37" )
-HighTemp=( "38" "39" "40" "41" )
-MAXTEMP="42"
+MidTemp=( "34" "35" "36")
+HighTemp=( "37" "38" "39")
+MAXTEMP="40"
 
 
 
@@ -154,25 +154,25 @@ do
   fi
 
   if [[ $CurrentTemp < $IdleTemp ]]; then
-    FanLevel15
+    FanLevel20
   fi
 
   array_contains LowTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    FanLevel20
+    FanLevel25
   fi
 
   array_contains MidTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    FanLevel30
+    FanLevel35
   fi
 
   array_contains HighTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    FanLevel35
+    FanLevel40
   fi
 
   sleep 30
