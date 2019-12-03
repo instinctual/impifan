@@ -105,11 +105,19 @@ function FanLevel35()
 }
 
 # 40%
-function FanLevel35()
+function FanLevel40()
 {
   echo "Setting fan speed to 40%"
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
   ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x28
+}
+
+# 45%
+function FanLevel40()
+{
+  echo "Setting fan speed to 45%"
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x01 0x00
+  ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW raw 0x30 0x30 0x02 0xff 0x2d
 }
 
 # Auto-controled
@@ -172,7 +180,7 @@ do
   array_contains HighTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    FanLevel40
+    FanLevel45
   fi
 
   sleep 30
