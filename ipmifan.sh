@@ -174,7 +174,7 @@ do
   array_contains MidTemp $CurrentTemp
   result=$(echo $?)
   if [ "$result" -eq 1 ] ; then
-    FanLevel35
+    FanLevel40
   fi
 
   array_contains HighTemp $CurrentTemp
