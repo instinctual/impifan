@@ -174,7 +174,7 @@ do
 		}
 
  		 CurrentTemp=$(gettemp)
- 		 echo "System Board Exhaust Temp: $CurrentTemp Celcius"
+ 		 echo "System Board for $IP_ADDRESS Exhaust Temp: $CurrentTemp Celcius"
  		 echo " "
  		 if [[ $CurrentTemp > $MAXTEMP ]]; then
  		   FanAuto
