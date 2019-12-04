@@ -155,7 +155,7 @@ while :
 do
 	for IP_ADDRESS in ${IPMIHOSTS}
 		do
-
+		echo $IP_ADDRESS
 		function gettemp()
 		{
   		TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type temperature | grep Exhaust | cut -d \| -f5 |grep -Po '\d{2}')
