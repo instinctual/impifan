@@ -153,8 +153,55 @@ array_contains () {
 
 while :
 do
- for IP_ADDRESS in ${IPMIHOSTS}; do
- echo "TEST FOR ${IP_ADDRESS}"
-  sleep $INTERVAL
-  done
+	for IP_ADDRESS in ${IPMIHOSTS}
+		do
+
+		function gettemp()
+		{
+  		TEMP=$(ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type temperature | grep Exhaust | cut -d \| -f5 |grep -Po '\d{2}')
+  		echo "$TEMP"
+		}
+		# Helper function for does an array contain a this value
+		array_contains () {
+		    local array="$1[@]"
+		    local seeking=$2
+  		  for element in "${!array}"; do
+   		     if [[ $element == $seeking ]]; then
+    		        return 1
+    		    fi
+   		 done
+   		 return 0
+		}
+
+ 		 CurrentTemp=$(gettemp)
+ 		 echo "System Board Exhaust Temp: $CurrentTemp Celcius"
+ 		 echo " "
+ 		 if [[ $CurrentTemp > $MAXTEMP ]]; then
+ 		   FanAuto
+ 		 fi
+
+		  if [[ $CurrentTemp < $IdleTemp ]]; then
+		    FanLevel20
+		  fi
+
+ 		 array_contains LowTemp $CurrentTemp
+		  result=$(echo $?)
+ 		 if [ "$result" -eq 1 ] ; then
+ 		   FanLevel25
+ 		 fi
+
+ 		 array_contains MidTemp $CurrentTemp
+ 		 result=$(echo $?)
+ 		 if [ "$result" -eq 1 ] ; then
+  		  FanLevel35
+ 		 fi
+
+ 		 array_contains HighTemp $CurrentTemp
+  		result=$(echo $?)
+ 		 if [ "$result" -eq 1 ] ; then
+ 		   FanLevel45
+ 		 fi
+
+  	sleep $INTERVAL
+	done
 done
