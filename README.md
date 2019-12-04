@@ -2,7 +2,7 @@
 # impifan
 Use IPMI to monitor and control the fans on a Dell R7910 server through the iDRAC using raw commands
 
-ENABLE/DISABLE Third-Party PCIe card based default system fan response:
+First, disable Third-Party PCIe card based default system fan response:
 ssh to iDRAC interface as root with iDRAC password.
 To check current status:
 
