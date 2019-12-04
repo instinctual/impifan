@@ -1,24 +1,22 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------------
-# Every 20 seconds this script checks the temperature reported by the ambient temperature sensor,
+# Every 30 seconds this script checks the temperature reported by the ambient temperature sensor,
 # and if deemed too high sends the raw IPMI command to adjust the fan speed on the R610 server.
 # It also sends healthcheck pings to a healthchecks.io service.
 #
 #
 # Requires:
-# ipmitool – apt-get install ipmitool
-# slacktee.sh – https://github.com/course-hero/slacktee
+# ipmitool – yum install ipmitool
+#
 # ----------------------------------------------------------------------------------
-# Set the state of Emergency (is it too hot or not)
-EMERGENCY=false
-NOTIFY=true
+
 
 # IPMI SETTINGS:
 # DEFAULT IP: 192.168.0.120
 IPMIHOST=192.168.108.59 # <IP Address of the iDRAC on the Server>
 IPMIUSER=root # <User for the iDRAC>
 IPMIPW=S*13qW6R+q@HQK2d07/- # <Password for the iDRAC
-
+INTERVAL=30
 
 # TEMPERATURE
 # Change this to the temperature in celcius you are comfortable with.
@@ -183,5 +181,5 @@ do
     FanLevel45
   fi
 
-  sleep 30
+  sleep $INTERVAL
 done
