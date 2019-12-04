@@ -1,8 +1,8 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------------
-# Every 30 seconds this script checks the temperature reported by the ambient temperature sensor,
-# and if deemed too high sends the raw IPMI command to adjust the fan speed on the R610 server.
-# It also sends healthcheck pings to a healthchecks.io service.
+# Every X seconds this script checks the temperature reported by the System Board Exhaust temperature sensor,
+# and if deemed too high sends the raw IPMI command to adjust the fan speed on an R7910 server.
+# 
 #
 #
 # Requires:
