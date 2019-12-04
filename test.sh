@@ -201,7 +201,6 @@ do
  		 if [ "$result" -eq 1 ] ; then
  		   FanLevel45
  		 fi
-
-  	sleep $INTERVAL
 	done
+  	sleep $INTERVAL
 done
